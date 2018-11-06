@@ -10,6 +10,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ContactsProvider } from '../providers/contacts-provider';
 import { ContactPage } from '../pages/contact/contact';
 import { EditContactPage } from '../pages/edit-contact/edit-contact';
+import { NewContactPage } from '../pages/new-contact/new-contact';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { EditContactPage } from '../pages/edit-contact/edit-contact';
     HomePage,
     ContactPage,
     EditContactPage,
+    NewContactPage,
   ],
   imports: [
     BrowserModule,
@@ -28,6 +30,7 @@ import { EditContactPage } from '../pages/edit-contact/edit-contact';
     HomePage,
     ContactPage,
     EditContactPage,
+    NewContactPage,
   ],
   providers: [
     StatusBar,
