@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Contact } from '../../app/contact';
 import { ContactsProvider } from '../../providers/contacts-provider';
 import { EditContactPage } from '../edit-contact/edit-contact';
@@ -13,11 +13,28 @@ import { ContactType } from '../../app/contact-type';
 export class ContactPage {
   contact: Contact;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private contacts: ContactsProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private contacts: ContactsProvider) {
     this.contact = navParams.get('contact');
   }
 
   promptDelete() {
+    const confirm = this.alertCtrl.create({
+      title: 'Desea el eliminar el contacto?',
+      buttons: [
+        {
+          text: 'Si',
+          handler: () => this.deleteContact()
+        },
+        {
+          text: 'No',
+        },
+      ],
+    });
+
+    confirm.present();
+  }
+
+  deleteContact() {
     this.contacts.deleteContact(this.contact);
     this.navCtrl.pop();
   }
@@ -25,8 +42,8 @@ export class ContactPage {
   showEdit() {
     let callback = (contact) => {
       return new Promise((resolve) => {
-          this.updateContact(contact);
-          resolve();
+        this.updateContact(contact);
+        resolve();
       });
     }
 
