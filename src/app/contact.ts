@@ -1,10 +1,20 @@
 import { ContactType } from "./contact-type";
 
 export class Contact {
-  public phones: string[] = ['', ''];
+  constructor(public name: string, public surname: string, public firstPhone: string, public secondPhone: string, public type: ContactType, public email: string = '') { }
 
-  constructor(public name: string, public surname: string, public email: string, public type: ContactType, ...phones: string[]) {
-    this.phones = phones;
+  matches(filter: string) {
+    if (filter && filter.trim() != '') {
+      const _filter = filter.toLowerCase();
+
+      return (this.name.toLowerCase().startsWith(_filter)) ||
+        (this.surname.toLowerCase().startsWith(_filter)) ||
+        (this.email.toLowerCase().startsWith(_filter)) ||
+        (this.firstPhone.toLowerCase().startsWith(_filter)) ||
+        (this.secondPhone.toLowerCase().startsWith(_filter));
+    }
+
+    return true;
   }
 
   get contactType() {
@@ -15,39 +25,11 @@ export class Contact {
     return `${this.surname}, ${this.name}`;
   }
 
-  get firstPhone(): string {
-    return this.getPhone(0);
+  get hasFirstPhone(): boolean {
+    return this.firstPhone != '';
   }
 
-  get secondPhone(): string {
-    return this.getPhone(1);
-  }
-
-  set firstPhone(phone: string) {
-    this.phones[0] = phone;
-  }
-
-  set secondPhone(phone: string) {
-    this.phones[1] = phone;
-  }
-
-  get hasFirstPhone(): Boolean {
-    return this.hasPhone(0);
-  }
-
-  get hasSecondPhone(): Boolean {
-    return this.hasPhone(1);
-  }
-
-  private hasPhone(index: any): Boolean {
-    return (this.phones.length >= index) && (this.phones[index] != '');
-  }
-
-  private getPhone(index: any): string {
-    if (this.hasPhone(index)) {
-      return this.phones[index];
-    }
-
-    return '';
+  get hasSecondPhone(): boolean {
+    return this.secondPhone != '';
   }
 }

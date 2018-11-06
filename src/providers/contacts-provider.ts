@@ -1,41 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Contact } from "../app/contact";
-import { ContactGroup } from "../app/contact-group";
 import { ContactType } from '../app/contact-type';
 
 @Injectable()
 export class ContactsProvider {
-  public groups: ContactGroup[] = [];
+  contacts: Contact[] = [];
 
   constructor() {
-    let group = this.newGroup('O');
-    group.addContact(new Contact('Agustin', 'Ortu', 'ortu.agustin@gmail.com', ContactType.Familia, '221-302-1282', '221-450-9878'));
-    group.addContact(new Contact('Natalia', 'Ortu', 'ortu.natalia@gmail.com', ContactType.Familia));
-
-    group = this.newGroup('B');
-    group.addContact(new Contact('Cristian', 'Barreto', 'barreto.cristian@gmail.com', ContactType.Amigo));
+    this.addContact(new Contact('Agustin', 'Ortu', '221-302-1282', '221-450-9878', ContactType.Familia, 'ortu.agustin@gmail.com'));
+    this.addContact(new Contact('Natalia', 'Ortu', 'tel principal', 'otro telefono', ContactType.Familia, 'ortu.natalia@gmail.com'));
+    this.addContact(new Contact('Cristian', 'Barreto', '', '', ContactType.Amigo, 'barreto.cristian@gmail.com'));
   }
 
-  protected newGroup(letter: string) {
-    const group = new ContactGroup(letter);
-    this.addGroup(group);
-
-    return group;
+  filterContacts(filter: string) {
+    return this.contacts.filter(each => each.matches(filter));
   }
 
-  protected addGroup(group: ContactGroup) {
-    this.groups.push(group);
-  }
-
-  protected groupWithContact(contact: Contact) {
-    return this.groups.find(each => each.hasContact(contact));
-  }
-
-  contacts() {
-    return this.groups.map(each => each.contacts);
+  addContact(contact: Contact) {
+    this.contacts.push(contact);
   }
 
   deleteContact(contact: Contact) {
-    this.groupWithContact(contact).deleteContact(contact);
+    this.contacts.splice(this.indexOf(contact), 1);
+  }
+
+  private indexOf(contact: Contact) {
+    return this.contacts.findIndex(each => each == contact);
   }
 }

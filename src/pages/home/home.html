@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -8,15 +8,14 @@
 </ion-header>
 
 <ion-content>
-  <ion-item-group *ngFor="let group of contacts.groups">
-    <ion-item-divider color="light">{{ group.letter }}</ion-item-divider>
-    <button ion-item *ngFor="let contact of group.contacts" (click)="showDetails(contact)">
-      <ion-icon name="contact" item-start large></ion-icon>
-      <ion-icon name="ios-arrow-forward" item-end></ion-icon>
+  <ion-searchbar [(ngModel)]="filter" [formControl]="searchControl" placeholder="Buscar..." spellcheck="true" animated="true"></ion-searchbar>
 
-      <h2>{{ contact.fullName }}</h2>
-      <p *ngIf="contact.hasFirstPhone">{{ contact.firstPhone }}</p>
-      <p *ngIf="contact.hasSecondPhone">{{ contact.secondPhone }}</p>
-    </button>
-  </ion-item-group>
+  <button ion-item *ngFor="let contact of contacts" (click)="showDetails(contact)">
+    <ion-icon name="contact" item-start large></ion-icon>
+    <ion-icon name="ios-arrow-forward" item-end></ion-icon>
+
+    <h2>{{ contact.fullName }}</h2>
+    <p *ngIf="contact.hasFirstPhone">{{ contact.firstPhone }}</p>
+    <p *ngIf="contact.hasSecondPhone">{{ contact.secondPhone }}</p>
+  </button>
 </ion-content>
