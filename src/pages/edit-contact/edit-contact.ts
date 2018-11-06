@@ -23,7 +23,7 @@ export class EditContactPage {
   private secondPhone: string;
   private type: ContactType;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private contacts: ContactsProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.callback = navParams.get('callback');
 
     this.contact = navParams.get('contact');
@@ -56,6 +56,6 @@ export class EditContactPage {
       return this.contact;
     }
 
-    return new Contact(this.name, this.surname, this.email, this.type, this.firstPhone, this.secondPhone);
+    return new Contact(this.name, this.surname, this.firstPhone, this.secondPhone, this.type, this.email);
   }
 }
