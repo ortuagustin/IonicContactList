@@ -3,16 +3,20 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>Mis Contactos</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+<ion-content>
+  <ion-item-group *ngFor="let group of contacts.groups">
+    <ion-item-divider color="light">{{ group.letter }}</ion-item-divider>
+    <button ion-item *ngFor="let contact of group.contacts" (click)="showDetails(contact)">
+      <ion-icon name="contact" item-start large></ion-icon>
+      <ion-icon name="ios-arrow-forward" item-end></ion-icon>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
-
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+      <h2>{{ contact.fullName }}</h2>
+      <p *ngIf="contact.hasFirstPhone">{{ contact.firstPhone }}</p>
+      <p *ngIf="contact.hasSecondPhone">{{ contact.secondPhone }}</p>
+    </button>
+  </ion-item-group>
 </ion-content>

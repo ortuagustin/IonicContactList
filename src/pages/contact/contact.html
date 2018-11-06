@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="showEdit()">
+        <ion-icon name="create"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-title>{{ contact.fullName }}</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="promptDelete()">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list no-lines>
+    <ion-item>
+      <ion-label fixed class="fixed-ion-label">Apellido</ion-label>
+      <ion-label>{{ contact.surname }}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed class="fixed-ion-label">Nombre</ion-label>
+      <ion-label>{{ contact.name }}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed class="fixed-ion-label">E-Mail</ion-label>
+      <ion-label>{{ contact.email }}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed class="fixed-ion-label">Teléfono</ion-label>
+      <ion-label>{{ contact.firstPhone }}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed class="fixed-ion-label">Teléfono alt.</ion-label>
+      <ion-label>{{ contact.secondPhone }}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed class="fixed-ion-label">Tipo de Contacto</ion-label>
+      <ion-label>{{ contact.type }}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
