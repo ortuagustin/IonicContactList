@@ -25,7 +25,7 @@ export class HomePage {
   }
 
   fetchContacts() {
-    this.contacts = this.contactsProvider.filterContacts(this.filter);
+    this.contacts = this.contactsProvider.filterContacts(this.filter).sort((a, b) => a.surname.localeCompare(b.surname));
   }
 
   ionViewDidLoad() {
