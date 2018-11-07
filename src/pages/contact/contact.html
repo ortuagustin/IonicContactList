@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-buttons start>
-      <button ion-button icon-only (click)="showEdit()">
+      <button ion-button icon-only (tap)="showEdit()">
         <ion-icon name="create"></ion-icon>
       </button>
     </ion-buttons>
@@ -9,7 +9,7 @@
     <ion-title>{{ contact.fullName }}</ion-title>
 
     <ion-buttons end>
-      <button ion-button icon-only (click)="promptDelete()">
+      <button ion-button icon-only (tap)="promptDelete()">
         <ion-icon name="trash"></ion-icon>
       </button>
     </ion-buttons>

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="primary">
       <ion-buttons start>
-        <button ion-button icon-only (click)="showAdd()">
+        <button ion-button icon-only (tap)="showAdd()">
           <ion-icon name="person-add"></ion-icon>
         </button>
       </ion-buttons>
@@ -16,7 +16,7 @@
 <ion-content>
   <ion-searchbar [(ngModel)]="filter" [formControl]="searchControl" placeholder="Buscar..." spellcheck="true" animated="true"></ion-searchbar>
 
-  <button ion-item *ngFor="let contact of contacts" (click)="showDetails(contact)">
+  <button ion-item *ngFor="let contact of contacts" (tap)="showDetails(contact)">
     <ion-icon name="contact" item-start large></ion-icon>
     <ion-icon name="ios-arrow-forward" item-end></ion-icon>
 
