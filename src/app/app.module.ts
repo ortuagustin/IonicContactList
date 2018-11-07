@@ -11,6 +11,7 @@ import { ContactsProvider } from '../providers/contacts-provider';
 import { ContactPage } from '../pages/contact/contact';
 import { EditContactPage } from '../pages/edit-contact/edit-contact';
 import { NewContactPage } from '../pages/new-contact/new-contact';
+import { SettingsProvider } from '../providers/settings/settings';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { NewContactPage } from '../pages/new-contact/new-contact';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ContactsProvider,
+    SettingsProvider,
   ]
 })
 export class AppModule {}
