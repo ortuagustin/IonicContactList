@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Contact } from '../../app/contact';
 import { ContactType } from '../../app/contact-type';
+import { Validators, FormGroup, FormBuilder, ValidationErrors } from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -14,15 +15,28 @@ export class NewContactPage {
   private contactTypes = ContactType;
   private contactTypesKeys = Object.keys(ContactType);
 
-  private surname: string = '';
-  private name: string = '';
-  private email: string = '';
-  private firstPhone: string = '';
-  private secondPhone: string = '';
-  private type: ContactType = ContactType.Amigo;
+  contact: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {
     this.callback = navParams.get('callback');
+
+    this.contact = this.formBuilder.group({
+      surname: [ '', Validators.required ],
+      name: [ '', Validators.required ],
+      email: [ '' ],
+      firstPhone: [ '', Validators.required ],
+      secondPhone: [ ''],
+      type: [ ContactType.Amigo, Validators.required ],
+    });
+
+  }
+
+  ionViewCanLeave(): boolean {
+    if (this.cancelled) {
+      return true;
+    }
+
+    return this.contact.valid;
   }
 
   ionViewWillLeave() {
@@ -37,11 +51,17 @@ export class NewContactPage {
   }
 
   private saveAndClose() {
-    this.cancelled = false;
     this.callback(this.newContact());
   }
 
   private newContact() {
-    return new Contact(this.name, this.surname, this.firstPhone, this.secondPhone, this.type, this.email);
+    return new Contact(
+      this.contact.value.name,
+      this.contact.value.surname,
+      this.contact.value.firstPhone,
+      this.contact.value.secondPhone,
+      this.contact.value.type,
+      this.contact.value.email
+    );
   }
 }

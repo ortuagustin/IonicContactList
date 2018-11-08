@@ -11,37 +11,53 @@
   </ion-header>
 
   <ion-content padding>
-    <ion-list no-lines>
+    <form [formGroup]="contact" ion-list no-lines>
       <ion-item>
         <ion-label fixed class="fixed-ion-label">Apellido</ion-label>
-        <ion-input type="text" [(ngModel)]="surname"></ion-input>
+        <ion-input type="text" formControlName="surname"></ion-input>
       </ion-item>
+
+      <ion-item-divider color="danger" *ngIf="contact.get('surname').hasError('required') && contact.get('surname').touched">
+        <p>El apellido no puede estar vacío</p>
+      </ion-item-divider>
 
       <ion-item>
         <ion-label fixed class="fixed-ion-label">Nombre</ion-label>
-        <ion-input type="text" [(ngModel)]="name"></ion-input>
+        <ion-input type="text" formControlName="name"></ion-input>
       </ion-item>
+
+      <ion-item-divider color="danger" *ngIf="contact.get('name').hasError('required') && contact.get('name').touched">
+        <p>El nombre no puede estar vacío</p>
+      </ion-item-divider>
 
       <ion-item>
         <ion-label fixed class="fixed-ion-label">E-Mail</ion-label>
-        <ion-input type="email" [(ngModel)]="email"></ion-input>
+        <ion-input type="email" formControlName="email"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label fixed class="fixed-ion-label">Teléfono</ion-label>
-        <ion-input type="text" [(ngModel)]="firstPhone"></ion-input>
+        <ion-input type="text" formControlName="firstPhone"></ion-input>
       </ion-item>
+
+      <ion-item-divider color="danger" *ngIf="contact.get('firstPhone').hasError('required') && contact.get('firstPhone').touched">
+        <p>El teléfono principal no puede estar vacío</p>
+      </ion-item-divider>
 
       <ion-item>
         <ion-label fixed class="fixed-ion-label">Teléfono alt.</ion-label>
-        <ion-input type="text" [(ngModel)]="secondPhone"></ion-input>
+        <ion-input type="text" formControlName="secondPhone"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label fixed class="fixed-ion-label">Tipo de Contacto</ion-label>
-        <ion-select [(ngModel)]="type">
+        <ion-select formControlName="type">
           <ion-option *ngFor="let option of contactTypesKeys" [value]="option">{{ contactTypes[option] }}</ion-option>
           </ion-select>
       </ion-item>
-    </ion-list>
+
+      <ion-item-divider color="danger" *ngIf="contact.get('type').hasError('required') && contact.get('type').touched">
+        <p>Debe seleccionar un tipo de contacto</p>
+      </ion-item-divider>
+    </form>
   </ion-content>
