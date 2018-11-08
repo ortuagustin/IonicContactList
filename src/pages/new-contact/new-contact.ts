@@ -28,7 +28,6 @@ export class NewContactPage {
       secondPhone: [ ''],
       type: [ ContactType.Amigo, Validators.required ],
     });
-
   }
 
   ionViewCanLeave(): boolean {
