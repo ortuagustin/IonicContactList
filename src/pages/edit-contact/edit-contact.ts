@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Contact } from '../../app/contact';
-import { ContactsProvider } from '../../providers/contacts-provider';
 import { ContactType } from '../../app/contact-type';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -15,24 +15,30 @@ export class EditContactPage {
   private contactTypes = ContactType;
   private contactTypesKeys = Object.keys(ContactType);
 
-  private contact: Contact;
-  private surname: string;
-  private name: string;
-  private email: string;
-  private firstPhone: string;
-  private secondPhone: string;
-  private type: ContactType;
+  contact: FormGroup;
+  originalContact: Contact;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {
     this.callback = navParams.get('callback');
 
-    this.contact = navParams.get('contact');
-    this.surname = this.contact.surname;
-    this.name = this.contact.name;
-    this.email = this.contact.email;
-    this.firstPhone = this.contact.firstPhone;
-    this.secondPhone = this.contact.secondPhone;
-    this.type = this.contact.type;
+    this.originalContact = navParams.get('contact');
+
+    this.contact = this.formBuilder.group({
+      surname: [ this.originalContact.surname, Validators.required ],
+      name: [ this.originalContact.name, Validators.required ],
+      email: [ this.originalContact.email ],
+      firstPhone: [ this.originalContact.firstPhone, Validators.required ],
+      secondPhone: [ this.originalContact.secondPhone ],
+      type: [ this.originalContact.type, Validators.required ],
+    });
+  }
+
+  ionViewCanLeave(): boolean {
+    if (this.cancelled) {
+      return true;
+    }
+
+    return this.contact.valid;
   }
 
   ionViewWillLeave() {
@@ -56,6 +62,13 @@ export class EditContactPage {
       return this.contact;
     }
 
-    return new Contact(this.name, this.surname, this.firstPhone, this.secondPhone, this.type, this.email);
+    return new Contact(
+      this.contact.value.name,
+      this.contact.value.surname,
+      this.contact.value.firstPhone,
+      this.contact.value.secondPhone,
+      this.contact.value.type,
+      this.contact.value.email
+    );
   }
 }
