@@ -12,8 +12,8 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 export class EditContactPage {
   private callback;
   private cancelled: boolean = false;
-  private contactTypes = ContactType;
-  private contactTypesKeys = Object.keys(ContactType);
+  contactTypes = ContactType;
+  contactTypesKeys = Object.keys(ContactType);
 
   contact: FormGroup;
   originalContact: Contact;

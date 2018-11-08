@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Contact } from '../../app/contact';
 import { ContactType } from '../../app/contact-type';
-import { Validators, FormGroup, FormBuilder, ValidationErrors } from '@angular/forms';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -12,8 +12,8 @@ import { Validators, FormGroup, FormBuilder, ValidationErrors } from '@angular/f
 export class NewContactPage {
   private callback;
   private cancelled: boolean = false;
-  private contactTypes = ContactType;
-  private contactTypesKeys = Object.keys(ContactType);
+  contactTypes = ContactType;
+  contactTypesKeys = Object.keys(ContactType);
 
   contact: FormGroup;
 
