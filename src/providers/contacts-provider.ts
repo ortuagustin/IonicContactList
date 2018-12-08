@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Contact } from "../app/contact";
-import { ContactType } from '../app/contact-type';
 
 @Injectable()
 export class ContactsProvider {
